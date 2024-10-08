@@ -41,28 +41,28 @@ function init3D(){
 
   document.getElementById('3Dtube').appendChild(renderer.domElement);
 
-  // Buat geometri untuk badan antena (lebih panjang)
-  const bodyGeometry = new THREE.CylinderGeometry(0.3, 0.3, 6, 32);
+  // Buat geometri untuk badan antena (lebih pendek dan sedikit lebih besar)
+  const bodyGeometry = new THREE.CylinderGeometry(0.3, 0.3, 3, 32);
   const bodyMaterial = new THREE.MeshPhongMaterial({color: 0xFFFFFF});
   const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
 
-  // Buat geometri untuk bagian atas antena (sedikit lebih kecil)
+  // Buat geometri untuk bagian atas antena (sedikit lebih besar)
   const topGeometry = new THREE.SphereGeometry(0.3, 32, 32);
   const topMaterial = new THREE.MeshPhongMaterial({color: 0xFFFFFF});
   const top = new THREE.Mesh(topGeometry, topMaterial);
-  top.position.y = 3; // Posisikan di atas badan
+  top.position.y = 1.5; // Posisikan di atas badan
 
   // Buat geometri untuk bagian bawah antena (bracket)
   const baseGeometry = new THREE.BoxGeometry(0.8, 0.1, 0.8);
   const baseMaterial = new THREE.MeshPhongMaterial({color: 0x888888});
   const base = new THREE.Mesh(baseGeometry, baseMaterial);
-  base.position.y = -3.05; // Posisikan di bawah badan
+  base.position.y = -1.55; // Posisikan di bawah badan
 
   // Buat kabel
-  const cableGeometry = new THREE.CylinderGeometry(0.05, 0.05, 1, 32);
+  const cableGeometry = new THREE.CylinderGeometry(0.04, 0.04, 0.6, 32);
   const cableMaterial = new THREE.MeshPhongMaterial({color: 0xCCCCCC});
   const cable = new THREE.Mesh(cableGeometry, cableMaterial);
-  cable.position.y = -3.5;
+  cable.position.y = -1.85;
   cable.position.x = 0.2;
   cable.rotation.z = Math.PI / 6; // Miringkan sedikit
 
@@ -83,7 +83,7 @@ function init3D(){
   const ambientLight = new THREE.AmbientLight(0x404040);
   scene.add(ambientLight);
 
-  camera.position.z = 10; // Sesuaikan posisi kamera
+  camera.position.z = 6; // Sesuaikan posisi kamera agar objek terlihat lebih dekat
   renderer.render(scene, camera);
 }
 
