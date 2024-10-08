@@ -1,0 +1,73 @@
+<!--
+  Rui Santos
+  Complete project details at https://RandomNerdTutorials.com/esp32-mpu-6050-web-server/
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.
+  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+
+<!DOCTYPE HTML><html>
+
+<head>
+  <title>Gyro Antenna</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 512'><path fill='%23003366' d='M54.2 202.9C123.2 136.7 216.8 96 320 96s196.8 40.7 265.8 106.9c12.8 12.2 33 11.8 45.2-.9s11.8-33-.9-45.2C549.7 79.5 440.4 32 320 32S90.3 79.5 9.8 156.7C-2.9 169-3.3 189.2 8.9 202s32.5 13.2 45.2 .9zM320 256c56.8 0 108.6 21.1 148.2 56c13.3 11.7 33.5 10.4 45.2-2.8s10.4-33.5-2.8-45.2C459.8 219.2 393 192 320 192s-139.8 27.2-190.5 72c-13.3 11.7-14.5 31.9-2.8 45.2s31.9 14.5 45.2 2.8c39.5-34.9 91.3-56 148.2-56zm64 160a64 64 0 1 0 -128 0 64 64 0 1 0 128 0z'/></svg>">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/107/three.min.js"></script>
+</head>
+
+<body>
+
+  <div class="topnav">
+    <div class="topnav-left">
+      <h3><i class="fas fa-broadcast-tower"></i> Gyro Antenna</h3>
+    </div>
+    <div class="topnav-right">
+      <button id="refreshBtn" class="nav-btn btn-sm"><i class="fas fa-sync-alt fa-sm"></i></button>
+      <button id="fullscreenBtn" class="nav-btn btn-sm"><i class="fas fa-expand fa-sm"></i></button>
+      <img src="assets/logo-trakindo.png" alt="Trakindo Logo" class="logo">
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="cards">
+      <div class="card-row">
+        <div class="card">
+          <p class="card-title">GYROSCOPE</p>
+          <p><span class="reading">X: <span id="gyroX"></span> rad</span></p>
+          <p><span class="reading">Y: <span id="gyroY"></span> rad</span></p>
+          <p><span class="reading">Z: <span id="gyroZ"></span> rad</span></p>
+        </div>
+        <div class="card">
+          <p class="card-title">ACCELEROMETER</p>
+          <p><span class="reading">X: <span id="accX"></span> ms<sup>2</sup></span></p>
+          <p><span class="reading">Y: <span id="accY"></span> ms<sup>2</sup></span></p>
+          <p><span class="reading">Z: <span id="accZ"></span> ms<sup>2</sup></span></p>
+        </div>
+        <div class="card">
+          <p class="card-title">TEMPERATURE</p>
+          <p><span class="reading"><span id="temp"></span> &deg;C</span></p>
+          <p class="card-title">3D ANIMATION</p>
+          <button id="reset" onclick="resetPosition(this)">RESET POSITION</button>
+          <button id="resetX" onclick="resetPosition(this)">X</button>
+          <button id="resetY" onclick="resetPosition(this)">Y</button>
+          <button id="resetZ" onclick="resetPosition(this)">Z</button>
+        </div>
+      </div>
+      <div class="card-row full-width">
+        <div class="card">
+          <p class="card-title">WAP/CAP Antenna Direction Monitoring</p>
+          <div class="tube-content">
+            <div id="3Dtube"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</body>
+
+<script src="script.js"></script>
+
+</html>
