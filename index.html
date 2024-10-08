@@ -29,7 +29,6 @@
       <img src="assets/logo-trakindo.png" alt="Trakindo Logo" class="logo">
     </div>
   </div>
-
   <div class="content">
     <div class="cards">
       <div class="card-row">
@@ -40,14 +39,6 @@
           <p><span class="reading">Z: <span id="gyroZ"></span> rad</span></p>
         </div>
         <div class="card">
-          <p class="card-title">ACCELEROMETER</p>
-          <p><span class="reading">X: <span id="accX"></span> ms<sup>2</sup></span></p>
-          <p><span class="reading">Y: <span id="accY"></span> ms<sup>2</sup></span></p>
-          <p><span class="reading">Z: <span id="accZ"></span> ms<sup>2</sup></span></p>
-        </div>
-        <div class="card">
-          <p class="card-title">TEMPERATURE</p>
-          <p><span class="reading"><span id="temp"></span> &deg;C</span></p>
           <p class="card-title">3D ANIMATION</p>
           <button id="reset" onclick="resetPosition(this)">RESET POSITION</button>
           <button id="resetX" onclick="resetPosition(this)">X</button>
@@ -55,8 +46,8 @@
           <button id="resetZ" onclick="resetPosition(this)">Z</button>
         </div>
       </div>
-      <div class="card-row full-width">
-        <div class="card">
+      <div class="card-row">
+        <div class="card full-width">
           <p class="card-title">WAP/CAP Antenna Direction Monitoring</p>
           <div class="tube-content">
             <div id="3Dtube"></div>
@@ -66,8 +57,8 @@
     </div>
   </div>
   
-</body>
+  <script src="script.js"></script>
 
-<script src="script.js"></script>
+</body>
 
 </html>

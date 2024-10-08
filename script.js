@@ -32,7 +32,27 @@ function parentHeight(elem) {
 
 function init3D(){
   scene = new THREE.Scene();
-  scene.background = new THREE.Color(0xf0f0f0);
+  
+  // Create a gradient background
+  const canvas = document.createElement('canvas');
+  canvas.width = 256;
+  canvas.height = 256;
+  const context = canvas.getContext('2d');
+  const gradient = context.createRadialGradient(
+    canvas.width / 2,
+    canvas.height / 2,
+    0,
+    canvas.width / 2,
+    canvas.height / 2,
+    canvas.width / 2
+  );
+  gradient.addColorStop(0, '#4a6fa5');  // Light blue center
+  gradient.addColorStop(1, '#172a45');  // Dark blue edge
+  context.fillStyle = gradient;
+  context.fillRect(0, 0, canvas.width, canvas.height);
+  
+  const bgTexture = new THREE.CanvasTexture(canvas);
+  scene.background = bgTexture;
 
   camera = new THREE.PerspectiveCamera(75, parentWidth(document.getElementById("3Dtube")) / parentHeight(document.getElementById("3Dtube")), 0.1, 1000);
 
@@ -41,32 +61,28 @@ function init3D(){
 
   document.getElementById('3Dtube').appendChild(renderer.domElement);
 
-  // Buat geometri untuk badan antena (lebih pendek dan sedikit lebih besar)
+  // Create geometries for the antenna parts
   const bodyGeometry = new THREE.CylinderGeometry(0.3, 0.3, 3, 32);
-  const bodyMaterial = new THREE.MeshPhongMaterial({color: 0xFFFFFF});
+  const bodyMaterial = new THREE.MeshPhongMaterial({color: 0xCCCCCC});  // Light gray
   const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
 
-  // Buat geometri untuk bagian atas antena (sedikit lebih besar)
   const topGeometry = new THREE.SphereGeometry(0.3, 32, 32);
-  const topMaterial = new THREE.MeshPhongMaterial({color: 0xFFFFFF});
+  const topMaterial = new THREE.MeshPhongMaterial({color: 0xDDDDDD});  // Slightly lighter gray
   const top = new THREE.Mesh(topGeometry, topMaterial);
-  top.position.y = 1.5; // Posisikan di atas badan
+  top.position.y = 1.5;
 
-  // Buat geometri untuk bagian bawah antena (bracket)
   const baseGeometry = new THREE.BoxGeometry(0.8, 0.1, 0.8);
-  const baseMaterial = new THREE.MeshPhongMaterial({color: 0x888888});
+  const baseMaterial = new THREE.MeshPhongMaterial({color: 0x555555});  // Dark gray
   const base = new THREE.Mesh(baseGeometry, baseMaterial);
-  base.position.y = -1.55; // Posisikan di bawah badan
+  base.position.y = -1.55;
 
-  // Buat kabel
   const cableGeometry = new THREE.CylinderGeometry(0.04, 0.04, 0.6, 32);
-  const cableMaterial = new THREE.MeshPhongMaterial({color: 0xCCCCCC});
+  const cableMaterial = new THREE.MeshPhongMaterial({color: 0x222222});  // Very dark gray
   const cable = new THREE.Mesh(cableGeometry, cableMaterial);
   cable.position.y = -1.85;
   cable.position.x = 0.2;
-  cable.rotation.z = Math.PI / 6; // Miringkan sedikit
+  cable.rotation.z = Math.PI / 6;
 
-  // Gabungkan semua bagian menjadi satu grup
   tube = new THREE.Group();
   tube.add(body);
   tube.add(top);
@@ -75,15 +91,19 @@ function init3D(){
 
   scene.add(tube);
   
-  // Tambahkan pencahayaan
-  const light = new THREE.PointLight(0xFFFFFF, 1, 100);
-  light.position.set(10, 10, 10);
-  scene.add(light);
+  // Enhanced lighting
+  const mainLight = new THREE.PointLight(0xFFFFFF, 1, 100);
+  mainLight.position.set(10, 10, 10);
+  scene.add(mainLight);
 
-  const ambientLight = new THREE.AmbientLight(0x404040);
+  const fillLight = new THREE.PointLight(0x9999FF, 0.5, 100);  // Soft blue fill light
+  fillLight.position.set(-10, 5, -10);
+  scene.add(fillLight);
+
+  const ambientLight = new THREE.AmbientLight(0x404040, 0.5);
   scene.add(ambientLight);
 
-  camera.position.z = 6; // Sesuaikan posisi kamera agar objek terlihat lebih dekat
+  camera.position.z = 6;
   renderer.render(scene, camera);
 }
 
